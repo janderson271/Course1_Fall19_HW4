@@ -38,8 +38,8 @@ def transform_line_to_scanner_frame(line, x, tf_base_to_camera, compute_jacobian
         tf_base_to_camera: np.array[3,] - pose of camera (x, y, theta) in base frame.
          compute_jacobian: bool         - compute Jacobian Hx if true.
     Outputs:
-             hs: [np.array[2,J]] - J line parameters in the scanner (camera) frame.
-        Hx_list: [np.array[2,3]] - list of Jacobians of h with respect to x.
+         h: np.array[2,]  - line parameters in the scanner (camera) frame.
+        Hx: np.array[2,3] - Jacobian of h with respect to x.
     """
     alpha, r = line
 
