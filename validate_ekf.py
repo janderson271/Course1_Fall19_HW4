@@ -144,7 +144,7 @@ def validate_localization_transition_model():
         g, Gx, Gu = ekf_loc.transition_model(u[i], 0.1)
         g_ref, Gx_ref, Gu_ref = validation[i]
         if np.linalg.norm(g - g_ref) + np.linalg.norm(Gx - Gx_ref) + np.linalg.norm(Gu - Gu_ref) > 1e-2:
-            print("At state x = {0} with u = {1} and dt = {2} got EkfLocalization.transition_model output:\n".format(ekf_loc.x, control, 0.1))
+            print("At state x = {0} with u = {1} and dt = {2} got EkfLocalization.transition_model output:\n".format(ekf_loc.x, u, 0.1))
             print(g)
             print(Gx)
             print(Gu)
