@@ -218,7 +218,7 @@ class MonteCarloLocalization(ParticleFilter):
             Q_raw: [np.array[2,2]] - list of I covariance matrices corresponding
                                      to each (alpha, r) column of z_raw.
         Outputs:
-            z: np.array[2I,]   - joint measurement mean.
+            z: np.array[M,2I]  - joint measurement mean for M particles.
             Q: np.array[2I,2I] - joint measurement covariance.
         """
         vs = self.compute_innovations(z_raw, np.array(Q_raw))
