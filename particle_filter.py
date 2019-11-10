@@ -249,9 +249,14 @@ class MonteCarloLocalization(ParticleFilter):
             a = a % (2. * np.pi)
             b = b % (2. * np.pi)
             diff = a - b
-            idx = np.abs(diff) > np.pi
-            sign = 2. * (diff[idx] < 0.) - 1.
-            diff[idx] += sign * 2. * np.pi
+            if np.size(diff) == 1:
+                if np.abs(a - b) > np.pi:
+                    sign = 2. * (diff < 0.) - 1.
+                    diff += sign * 2. * np.pi
+            else:
+                idx = np.abs(diff) > np.pi
+                sign = 2. * (diff[idx] < 0.) - 1.
+                diff[idx] += sign * 2. * np.pi
             return diff
 
         ########## Code starts here ##########

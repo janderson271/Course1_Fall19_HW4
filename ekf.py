@@ -1,7 +1,6 @@
 import numpy as np
 import scipy.linalg    # you may find scipy.linalg.block_diag useful
 import turtlebot_model as tb
-from ExtractLines import angle_difference
 
 class Ekf(object):
     """
@@ -183,10 +182,9 @@ class EkfLocalization(Ekf):
             b = b % (2. * np.pi)
             diff = a - b
             if np.size(diff) == 1:
-                if np.abs(diff) > np.pi:
-                    diff -= 2. * np.pi
-                else:
-                    diff += 2. * np.pi
+                if np.abs(a - b) > np.pi:
+                    sign = 2. * (diff < 0.) - 1.
+                    diff += sign * 2. * np.pi
             else:
                 idx = np.abs(diff) > np.pi
                 sign = 2. * (diff[idx] < 0.) - 1.
@@ -305,9 +303,14 @@ class EkfSlam(Ekf):
             a = a % (2. * np.pi)
             b = b % (2. * np.pi)
             diff = a - b
-            idx = np.abs(diff) > np.pi
-            sign = 2. * (diff[idx] < 0.) - 1.
-            diff[idx] += sign * 2. * np.pi
+            if np.size(diff) == 1:
+                if np.abs(a - b) > np.pi:
+                    sign = 2. * (diff < 0.) - 1.
+                    diff += sign * 2. * np.pi
+            else:
+                idx = np.abs(diff) > np.pi
+                sign = 2. * (diff[idx] < 0.) - 1.
+                diff[idx] += sign * 2. * np.pi
             return diff
 
         hs, Hs = self.compute_predicted_measurements()
