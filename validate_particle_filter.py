@@ -59,7 +59,7 @@ def validate_transition_model():
         print("Got MonteCarloLocalization.transition_model() particles:\n")
         print(xs)
         print("\nvs. the expected particles\n")
-        print(xs_input)
+        print(xs_validation)
         return False
 
     print("MonteCarloLocalization.transition_model() seems to be correct")
